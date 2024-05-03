@@ -1,7 +1,9 @@
+import {Carts} from "./components/Carts/Carts";
+
 const App = () => {
     return (
         <div>
-            App
+            <Carts/>
         </div>
     );
 };
