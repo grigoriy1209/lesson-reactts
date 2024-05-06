@@ -2,22 +2,34 @@ import {FC, useEffect, useState} from "react";
 import {ICartModel} from "../../models/ICartModel";
 import {getAllCarts} from "../../services/dummi.api.services";
 import {Cart} from "./Cart";
+import {IProductModel} from "../../models/IProductModel";
 
+interface IProps {
+    getProductsFromCart:(products:IProductModel[])=>void
+}
 
-
-const Carts:FC = () => {
+const Carts:FC<IProps> = ({getProductsFromCart}) => {
     const [carts, setCarts] = useState<ICartModel[]>([])
 
     useEffect(() => {
+        // @ts-ignore
         getAllCarts().then(({data:{carts}})=> {
-            setCarts(carts);
+           setCarts(carts);
         })
     }, []);
 
     return (
         <div>
             {
-                carts.map(cart =><Cart key={cart.id} cart={cart}/>)
+                carts
+                    .map
+                          (value => (
+                              <Cart
+                                    key={value.id}
+                                    getProductsFromCart={getProductsFromCart}
+                                     item={value}/>
+                              )
+                          )
             }
         </div>
     );
