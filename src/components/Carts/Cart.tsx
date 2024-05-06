@@ -1,4 +1,5 @@
 const Cart = ({cart}) => {
+    
     return (
         <div>
             Cart
